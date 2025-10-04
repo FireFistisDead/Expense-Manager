@@ -19,7 +19,13 @@ import {
   LogOut, 
   User,
   Menu,
-  X
+  X,
+  Bell,
+  FileText,
+  Users,
+  Settings,
+  BarChart3,
+  Shield
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -57,10 +63,40 @@ const Layout = () => {
       allowedRoles: ['admin', 'manager', 'employee']
     },
     {
+      name: 'Reports',
+      path: '/reports',
+      icon: FileText,
+      allowedRoles: ['admin', 'manager', 'employee']
+    },
+    {
+      name: 'Notifications',
+      path: '/notifications',
+      icon: Bell,
+      allowedRoles: ['admin', 'manager', 'employee']
+    },
+    {
       name: 'Approvals',
       path: '/approvals',
       icon: CheckCircle,
       allowedRoles: ['admin', 'manager']
+    },
+    {
+      name: 'Analytics',
+      path: '/analytics',
+      icon: BarChart3,
+      allowedRoles: ['admin', 'manager']
+    },
+    {
+      name: 'Users',
+      path: '/users',
+      icon: Users,
+      allowedRoles: ['admin', 'manager']
+    },
+    {
+      name: 'Policies',
+      path: '/policies',
+      icon: Shield,
+      allowedRoles: ['admin']
     }
   ];
 

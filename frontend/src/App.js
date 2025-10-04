@@ -11,11 +11,17 @@ import DashboardPage from "./pages/DashboardPage";
 import ExpensesPage from "./pages/ExpensesPage";
 import CreateExpensePage from "./pages/CreateExpensePage";
 import ApprovalsPage from "./pages/ApprovalsPage";
+import NotificationsPage from "./pages/NotificationsPage";
+import ExpensePoliciesPage from "./pages/ExpensePoliciesPage";
+import ExpenseReportsPage from "./pages/ExpenseReportsPage";
+import UserManagementPage from "./pages/UserManagementPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import AnalyticsTestPage from "./pages/AnalyticsTestPage";
 
 // Components
 import Layout from "./components/Layout";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 const API = `${BACKEND_URL}/api`;
 
 // Auth Context
@@ -137,8 +143,22 @@ function App() {
                 <Route path="dashboard" element={<DashboardPage />} />
                 <Route path="expenses" element={<ExpensesPage />} />
                 <Route path="expenses/create" element={<CreateExpensePage />} />
+                <Route path="reports" element={<ExpenseReportsPage />} />
+                <Route path="notifications" element={<NotificationsPage />} />
+                
+                {/* Manager and Admin Routes */}
                 {(user.role === 'admin' || user.role === 'manager') && (
-                  <Route path="approvals" element={<ApprovalsPage />} />
+                  <>
+                    <Route path="approvals" element={<ApprovalsPage />} />
+                    <Route path="analytics" element={<AnalyticsPage />} />
+                    <Route path="analytics-test" element={<AnalyticsTestPage />} />
+                    <Route path="users" element={<UserManagementPage />} />
+                  </>
+                )}
+                
+                {/* Admin Only Routes */}
+                {user.role === 'admin' && (
+                  <Route path="policies" element={<ExpensePoliciesPage />} />
                 )}
               </Route>
             )}
