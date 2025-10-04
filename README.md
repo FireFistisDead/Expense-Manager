@@ -8,30 +8,69 @@ A comprehensive full-stack expense management application built with React (fron
 - **User Registration & Login** with JWT authentication
 - **Role-based access control** (Admin, Manager, Employee)
 - **Multi-company support** with company-specific data isolation
+- **User profile management** with department and manager assignments
 
 ### 💳 Expense Management
 - **Create expenses** with detailed information (amount, category, description, date)
 - **Receipt upload** with OCR text extraction for automatic data population
 - **Multi-currency support** with real-time exchange rate conversion
 - **Expense categories** for better organization and reporting
+- **Policy validation** with automatic rule enforcement
+- **Auto-approval** for expenses under predefined limits
+
+### 📋 Expense Reports
+- **Group expenses** into comprehensive reports
+- **Submit reports** for batch approval
+- **Track report status** (Draft, Submitted, Approved, Rejected)
+- **Report history** and detailed expense breakdowns
 
 ### ✅ Approval Workflow
 - **Manager approval system** for employee expenses
 - **Approval history tracking** with comments and timestamps
-- **Status tracking** (Pending, Approved, Rejected)
-- **Notification system** for approval status changes
+- **Status tracking** (Pending, Approved, Rejected, Reimbursed)
+- **Policy violation alerts** and manual review requirements
+- **Bulk approval** capabilities for managers
 
-### 📊 Dashboard & Analytics
-- **Personal dashboard** for employees with expense summaries
-- **Management dashboard** with team expense overview
-- **Real-time statistics** and expense analytics
-- **Currency conversion** and multi-currency reporting
+### 🔔 Notifications & Alerts
+- **Real-time notifications** for expense submissions and approvals
+- **Email notifications** (configurable)
+- **Policy violation alerts**
+- **Approval reminders** and deadline notifications
+- **Mark as read** functionality
+
+### 📊 Advanced Analytics & Reporting
+- **Expense analytics** with filtering by date, category, and department
+- **Monthly spending trends** with visual indicators
+- **Top categories** analysis and insights
+- **Budget tracking** and variance reporting
+- **Export capabilities** for financial reporting
+
+### 🛡️ Policy Management (Admin)
+- **Expense policies** with category-specific rules
+- **Spending limits** and approval thresholds
+- **Receipt requirements** by category
+- **Auto-approval limits** for streamlined processing
+- **Policy violation tracking**
+
+### 👥 User Management
+- **User profiles** with department and role management
+- **Manager assignments** and team structure
+- **User activation/deactivation**
+- **Role-based permissions**
+- **Employee directory** with contact information
+
+### 💰 Budget Management
+- **Department budgets** with monthly/yearly limits
+- **Budget monitoring** and alert systems
+- **Spending analysis** by department and category
+- **Budget variance** reporting
 
 ### 🎨 Modern UI/UX
 - **Responsive design** built with React and Tailwind CSS
 - **Component library** using Radix UI components
-- **Dark/Light theme support**
+- **Intuitive navigation** with role-based menus
 - **Mobile-friendly interface**
+- **Professional dashboard** with key metrics
 
 ## 🏗️ Technology Stack
 
@@ -238,13 +277,42 @@ The application uses the following collections:
 
 ### Expenses
 - `GET /api/expenses` - List user expenses
-- `POST /api/expenses` - Create new expense
+- `POST /api/expenses` - Create new expense (with policy validation)
 - `POST /api/expenses/with-receipt` - Create expense with receipt upload
 - `GET /api/expenses/pending` - Get pending expenses (managers only)
 - `POST /api/expenses/{id}/approve` - Approve/reject expense
 
-### Dashboard
+### Expense Reports
+- `GET /api/reports` - List expense reports
+- `POST /api/reports` - Create new expense report
+- `PUT /api/reports/{id}/submit` - Submit report for approval
+
+### Expense Policies (Admin)
+- `GET /api/policies` - List expense policies
+- `POST /api/policies` - Create expense policy
+- `PUT /api/policies/{id}` - Update expense policy
+- `DELETE /api/policies/{id}` - Delete expense policy
+
+### User Management
+- `GET /api/users` - List users (admin/manager)
+- `PUT /api/users/{id}` - Update user profile
+- `DELETE /api/users/{id}` - Deactivate user (admin)
+
+### Notifications
+- `GET /api/notifications` - Get user notifications
+- `PUT /api/notifications/{id}/read` - Mark notification as read
+
+### Budget Management
+- `GET /api/budgets` - List budget limits (admin/manager)
+- `POST /api/budgets` - Create budget limit (admin)
+- `GET /api/budgets/spending/{department}` - Get department spending
+
+### Analytics & Reporting
+- `GET /api/analytics/expenses` - Get expense analytics with filters
 - `GET /api/dashboard/stats` - Get dashboard statistics
+
+### Categories
+- `GET /api/categories` - Get expense categories
 
 ## 🤝 Contributing
 
