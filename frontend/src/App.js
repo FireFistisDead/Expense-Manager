@@ -11,6 +11,11 @@ import DashboardPage from "./pages/DashboardPage";
 import ExpensesPage from "./pages/ExpensesPage";
 import CreateExpensePage from "./pages/CreateExpensePage";
 import ApprovalsPage from "./pages/ApprovalsPage";
+import AdminUsersPage from './pages/AdminUsersPage';
+import AdminCreateUserPage from './pages/AdminCreateUserPage';
+import ManagerTeamPage from './pages/ManagerTeamPage';
+import ManagerTeamExpensesPage from './pages/ManagerTeamExpensesPage';
+
 
 // Components
 import Layout from "./components/Layout";
@@ -139,6 +144,18 @@ function App() {
                 <Route path="expenses/create" element={<CreateExpensePage />} />
                 {(user.role === 'admin' || user.role === 'manager') && (
                   <Route path="approvals" element={<ApprovalsPage />} />
+                )}
+                {user.role === 'admin' && (
+                  <>
+                    <Route path="admin/users" element={<AdminUsersPage />} />
+                    <Route path="admin/users/create" element={<AdminCreateUserPage />} />
+                  </>
+                )}
+                {user.role === 'manager' && (
+                  <>
+                    <Route path="manager/team" element={<ManagerTeamPage />} />
+                    <Route path="manager/team/expenses" element={<ManagerTeamExpensesPage />} />
+                  </>
                 )}
               </Route>
             )}

@@ -132,8 +132,9 @@ class UserResponse(BaseModel):
     role: str
     company_id: str
     manager_id: Optional[str] = None
+    is_active: bool = True
     is_manager_approver: bool = False
-    created_at: datetime
+    created_at: Optional[datetime] = None
 
 # JWT Functions
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
@@ -750,7 +751,7 @@ async def create_user_by_admin(
     
     new_user = {
         "id": user_id,
-        "name": user_data.name,
+        "full_name": user_data.full_name,
         "email": user_data.email,
         "hashed_password": hashed_password,
         "role": user_data.role,
@@ -765,7 +766,7 @@ async def create_user_by_admin(
     # Return user data without password
     return UserResponse(
         id=user_id,
-        name=user_data.name,
+        full_name=user_data.full_name,
         email=user_data.email,
         role=user_data.role,
         company_id=current_user.company_id,
@@ -790,12 +791,13 @@ async def get_company_users_by_admin(current_user: User = Depends(require_role("
     for user in users:
         user_responses.append(UserResponse(
             id=user["id"],
-            name=user["name"],
+            full_name=user["full_name"],
             email=user["email"],
             role=user["role"],
             company_id=user["company_id"],
             manager_id=user.get("manager_id"),
-            is_active=user.get("is_active", True)
+            is_active=user.get("is_active", True),
+            created_at=user.get("created_at")
         ))
     
     return {"users": user_responses}
@@ -816,8 +818,8 @@ async def update_user_by_admin(
     # Prepare update data
     update_data = {}
     
-    if user_updates.name is not None:
-        update_data["name"] = user_updates.name
+    if user_updates.full_name is not None:
+        update_data["full_name"] = user_updates.full_name
     
     if user_updates.role is not None:
         # Validate role
@@ -865,7 +867,7 @@ async def update_user_by_admin(
     
     return UserResponse(
         id=updated_user["id"],
-        name=updated_user["name"],
+        full_name=updated_user["full_name"],
         email=updated_user["email"],
         role=updated_user["role"],
         company_id=updated_user["company_id"],
@@ -911,7 +913,7 @@ async def get_manager_team(current_user: User = Depends(require_role("manager"))
         "team_members": team_responses,
         "manager": {
             "id": current_user.id,
-            "name": current_user.name,
+            "full_name": current_user.full_name,
             "email": current_user.email
         },
         "team_size": len(team_responses)
