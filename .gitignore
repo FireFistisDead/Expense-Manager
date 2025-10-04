@@ -111,3 +111,4 @@ receipts/
 # Platform specific scripts (optional - you may want to include these)
 # setup.bat
 # start.bat 
+venv/

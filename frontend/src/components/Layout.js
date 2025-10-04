@@ -19,7 +19,8 @@ import {
   LogOut, 
   User,
   Menu,
-  X
+  X,
+  Users
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -61,6 +62,12 @@ const Layout = () => {
       path: '/approvals',
       icon: CheckCircle,
       allowedRoles: ['admin', 'manager']
+    },
+    {
+      name: 'User Management',
+      path: '/admin/users',
+      icon: Users,
+      allowedRoles: ['admin']
     }
   ];
 
